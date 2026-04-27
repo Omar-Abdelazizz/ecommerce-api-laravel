@@ -173,6 +173,20 @@ POST /api/cart
   "quantity": 2
 }
 ```
+## 📮 Postman Collection
+
+You can test all API endpoints using the Postman collection:
+
+1. Open Postman
+2. Click **Import**
+3. Select the file:
+
+```
+postman/Ecommerce API.postman_collection.json
+```
+
+4. Run the **Login** request first to generate a token
+5. All protected endpoints will automatically use the token
 
 ---
 
