@@ -17,9 +17,9 @@ Route::prefix('admin')->middleware(['auth:sanctum'])->group(function () {
         ->except(['index', 'show'])
         ->middleware('permission:manage categories');
 
-    Route::apiResource('items', ItemController::class)
-        ->except(['index', 'show'])
-        ->middleware('permission:manage items');
+    // Route::apiResource('items', ItemController::class)
+    //     ->except(['index', 'show'])
+    //     ->middleware('permission:manage items');
 
     Route::apiResource('variants', VariantController::class)
         ->except(['index', 'show'])
@@ -36,8 +36,17 @@ Route::prefix('admin')->middleware(['auth:sanctum'])->group(function () {
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{category}', [CategoryController::class, 'show']);
 
-Route::get('items', [ItemController::class, 'index']);
-Route::get('items/{item}', [ItemController::class, 'show']);
+// Route::get('items', [ItemController::class, 'index']);
+// Route::get('items/{item}', [ItemController::class, 'show']);
+
+
+// Route::ApiResources([
+//     'items' => ItemController::class,
+//     'categories' => CategoryController::class,
+// ]);
+
+Route::apiResource('items', ItemController::class)->only(['store', 'update', 'destroy'])->middleware('auth:sanctum');
+Route::apiResource('items', ItemController::class)->only(['index', 'show']);
 
 Route::get('variants', [VariantController::class, 'index']);
 Route::get('variants/{variant}', [VariantController::class, 'show']);
