@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreItemVariantRequest;
+use App\Http\Resources\ItemVariantResource;
 use App\Models\ItemVariant;
 // use Illuminate\Http\Request;
 
@@ -14,18 +15,7 @@ class ItemVariantController extends Controller
         return ItemVariant::with('values', 'item')
             ->get()
             ->map(function ($variant) {
-                return [
-                    'id' => $variant->id,
-                    'item' => $variant->item->name,
-                    'sku' => $variant->sku,
-                    'stock' => $variant->stock,
-                    'values' => $variant->values->map(function ($v) {
-                        return [
-                            'key' => $v->type,
-                            'value' => $v->value
-                        ];
-                    })->values()
-                ];
+                return new ItemVariantResource($variant);
             });
     }
     public function store(StoreItemVariantRequest $request)
